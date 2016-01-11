@@ -1,0 +1,53 @@
+body {
+  background-color: #333 !important;
+
+}
+a {
+  color: #64696D !important;
+  text-decoration:none;
+}
+a:link {
+  color: #64696D !important;
+  text-decoration:none;
+}
+a:visited {
+    color: #64696D !important;
+    text-decoration:none;
+}
+a:hover {
+  color: #64696D !important;
+  text-decoration:none;
+}
+a:active {
+    color: #64696D !important;
+    text-decoration:none;
+}
+.content {
+    overflow-x: hidden;
+}
+.crawler-title {
+  color: #9C302D !important;
+  font-family: sans-serif;
+  text-shadow: 2px 2px 2px #5A1E1E
+}
+.crawler-jumbotron {
+  border-bottom: 4px solid #903E3D;
+}
+.label-as-badge {
+  border-radius: 1em;
+  padding: 2px 4px 3px 4px;
+  margin: 5px;
+  color: #9A9A9A;
+}
+.glyphicon-refresh-animate {
+  -animation: spin .7s infinite linear;
+  -webkit-animation: spin2 .7s infinite linear;
+}
+@-webkit-keyframes spin2 {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}
