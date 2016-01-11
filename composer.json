@@ -1,6 +1,6 @@
 {
-    "name": "your-name-here/Crawler",
-    "description": "Crawler plugin for CakePHP",
+    "name": "patarkf/crawler",
+    "description": "Crawler, a HTML parser plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
         "php": ">=5.4.16",
