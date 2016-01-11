@@ -2,12 +2,16 @@
     "name": "patarkf/crawler-cakephp",
     "description": "Crawler, a HTML parser plugin for CakePHP",
     "type": "cakephp-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Patrick Ferreira",
+            "email": "paatrickferreira@gmail.com"
+        }
+    ],
     "require": {
         "php": ">=5.4.16",
         "cakephp/cakephp": "~3.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "*"
     },
     "autoload": {
         "psr-4": {
