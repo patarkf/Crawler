@@ -1,5 +1,5 @@
 {
-    "name": "patarkf/crawler",
+    "name": "patarkf/crawler-cakephp",
     "description": "Crawler, a HTML parser plugin for CakePHP",
     "type": "cakephp-plugin",
     "require": {
