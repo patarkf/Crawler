@@ -1,5 +1,7 @@
 # Crawler plugin for CakePHP
 
+Crawler is a HTML parser useful to find broken links, images, scripts, etc. The user simply paste the link on the input, submit it and wait for the results. Simple as that.
+
 ## Installation
 
 You can install this plugin into your CakePHP application using [composer](http://getcomposer.org).
@@ -14,6 +16,14 @@ After that, just access the route like the example:
 
 ```
 http://localhost/project/crawler/
+```
+
+## Configuration
+
+After install just add the line below to your ``config/bootstrap.php``.
+
+```
+Plugin::load('Crawler', ['routes' => true, 'autoload' => true]);
 ```
 
 ## License
