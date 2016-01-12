@@ -12,18 +12,18 @@ The recommended way to install composer packages is:
 composer require patarkf/crawler-cakephp:*
 ```
 
-After that, just access the route like the example:
-
-```
-http://localhost/project/crawler/
-```
-
 ## Configuration
 
 After install just add the line below to your ``config/bootstrap.php``.
 
 ```
 Plugin::load('Crawler', ['routes' => true, 'autoload' => true]);
+```
+
+After that, just access the route like the example:
+
+```
+http://localhost/project/crawler/
 ```
 
 ## License
