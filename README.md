@@ -20,7 +20,7 @@ After install just add the line below to your ``config/bootstrap.php``.
 Plugin::load('Crawler', ['routes' => true, 'autoload' => true]);
 ```
 
-After that, just access the route like the example:
+So access the route like the example:
 
 ```
 http://localhost/project/crawler/
