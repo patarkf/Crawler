@@ -1,14 +1,24 @@
 <?php
+/**
+ * Crawler
+ * A HTML parser plugin for CakePHP 3
+ *
+ * @author Patrick Ferreira <paatrickferreira@gmail.com>
+ * @link          https://github.com/patarkf/Crawler Crawler plugin to CakePHP
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 namespace Crawler\Controller\Component;
 
 use Cake\Controller\Component;
 
 class ParserComponent extends Component
 {
+
     /**
      * It reads and extract a HTML page and load it with
      * the DOMDocument.
-     * @param  string $pageUrl Url of the HTML page
+     *
+     * @param  string $pageUrl Url of the page
      * @return \DOMDocument
      */
     public function initializeDom($pageUrl)
@@ -21,16 +31,24 @@ class ParserComponent extends Component
     }
 
     /**
-     * @param \DOMDocument $dom
-     * @param $pageUrl
-     * @return array
+     * Main function of the Parser component. It's responsible for read and iterate
+     * the DOM object and extract every element based on the tag and attr passed
+     * as parameters. It uses Curl to make a request to every link of the page and
+     * verifies the HTTP status of every one.
+     *
+     * @param \DOMDocument $dom DOM object with HTML loaded
+     * @param string $pageUrl Url of the target page
+     * @param string $tag Target tag
+     * @param string $attr The attr of the target tag
+     * @param int $limit Limit of links that the crawler will search
+     * @return array Array of found links
      */
-    public function parseForLinks(\DOMDocument $dom, $pageUrl, $tag, $attr)
+    public function parseForLinks(\DOMDocument $dom, $pageUrl, $tag, $attr, $limit = null)
     {
         $foundLinks = [];
         foreach ($dom->getElementsByTagName($tag) as $key => $link) {
 
-            if ($key >= 100) {
+            if ($this->_checkIfItHasReachedTheLimitOfLinks($key, $limit)) {
                 break;
             }
 
@@ -58,6 +76,13 @@ class ParserComponent extends Component
         return $this->_orderLinks($foundLinks);
     }
 
+    /**
+     * It counts the number of occurrences of every HTTP response
+     * obtained by the request.
+     *
+     * @param array $links Array of links
+     * @return array Flat array of HTTP responses and their occurrences
+     */
     public function countTheOccurrencesOfHttpResponses($links)
     {
         $httpStatusOccurrences = array_count_values(
@@ -69,6 +94,30 @@ class ParserComponent extends Component
         return $httpStatusOccurrences;
     }
 
+    /**
+     * It checks if the current key of the links array has reached the limit
+     * stablished by the user.
+     *
+     * @param int $currentKey Key of the array that are being iterated
+     * @param int|null $limit Limit of links that crawler will search for
+     * @return bool False if the key wasn't reached the limit yet and true if it did
+     */
+    protected function _checkIfItHasReachedTheLimitOfLinks($currentKey, $limit = null)
+    {
+        if (!empty($limit)) {
+            if ($currentKey == $limit) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * It sorts the links by HTTP status.
+     *
+     * @param array $foundLinks Array of found links
+     * @return mixed Array of found links sorted by HTTP status
+     */
     protected function _orderLinks($foundLinks)
     {
         usort($foundLinks, function ($a, $b) {
@@ -79,9 +128,11 @@ class ParserComponent extends Component
     }
 
     /**
-     * @param $relative
-     * @param $base
-     * @return mixed|string
+     * It converts a relative path of a link to a absolute path.
+     *
+     * @param string $relative Relative path to be converted
+     * @param string $base Base path (full path of the target url)
+     * @return mixed|string Appropriated absolute path
      */
     protected function _convertRelativePathToAbsolute($relative, $base)
     {
@@ -108,9 +159,11 @@ class ParserComponent extends Component
     }
 
     /**
-     * @param $base
-     * @param $relative
-     * @return string
+     * It cleans the path removing inappropriated characteres or symbols.
+     *
+     * @param string $base Base path (full path of the target url)
+     * @param $relative Relative path to be converted
+     * @return string Appropriated abgsolute path
      */
     protected function _sanitizeAbsoluteUrl($base, $relative)
     {

@@ -1,4 +1,12 @@
 <?php
+/**
+ * Crawler
+ * A HTML parser plugin for CakePHP 3
+ *
+ * @author Patrick Ferreira <paatrickferreira@gmail.com>
+ * @link          https://github.com/patarkf/Crawler Crawler plugin to CakePHP
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 namespace Crawler\Controller;
 
 use Crawler\Controller\AppController;
@@ -11,6 +19,10 @@ use Crawler\Controller\AppController;
 class ServicesController extends AppController
 {
 
+    /**
+     * It initializes the component
+     * @return void
+     */
     public function initialize()
     {
         parent::initialize();
@@ -35,6 +47,14 @@ class ServicesController extends AppController
         }
     }
 
+    /**
+     * Used to get all links "<a>" of a HTML page.
+     *
+     * @param DOM $dom DOM object with the HTML target page already loaded
+     * @param string $url URL of the target page
+     * @return array Array containing all the links found, number of links
+     * found and also the HTTP responses
+     */
     protected function _getLinks($dom, $url)
     {
         $links = $this->Parser->parseForLinks($dom, $url, "a", "href");
@@ -47,6 +67,14 @@ class ServicesController extends AppController
         ];
     }
 
+    /**
+     * Used to get all links "<img>" of a HTML page.
+     *
+     * @param DOM $dom DOM object with the HTML target page already loaded
+     * @param string $url URL of the target page
+     * @return array Array containing all the links found, number of links
+     * found and also the HTTP responses
+     */
     protected function _getImages($dom, $url)
     {
         $images = $this->Parser->parseForLinks($dom, $url, "img", "src");
@@ -59,6 +87,14 @@ class ServicesController extends AppController
         ];
     }
 
+    /**
+     * Used to get all links "<script>" of a HTML page.
+     *
+     * @param DOM $dom DOM object with the HTML target page already loaded
+     * @param string $url URL of the target page
+     * @return array Array containing all the images found, number of images
+     * found and also the HTTP responses
+     */
     protected function _getScripts($dom, $url)
     {
         $scripts = $this->Parser->parseForLinks($dom, $url, "script", "src");
@@ -71,6 +107,14 @@ class ServicesController extends AppController
         ];
     }
 
+    /**
+     * Used to get all links "<link>" of a HTML page.
+     *
+     * @param DOM $dom DOM object with the HTML target page already loaded
+     * @param string $url URL of the target page
+     * @return array Array containing all the css links found, number of css links
+     * found and also the HTTP responses
+     */
     protected function _getCssLinks($dom, $url)
     {
         $cssLinks = $this->Parser->parseForLinks($dom, $url, "link", "rel");
